@@ -1,17 +1,23 @@
 <template>
-  <div class="wrap" data-aos="fade-down" data-aos-duration="1500">
-    <div class="container">
-      <div class="header" data-aos="fade-left" data-aos-duration="2000" data-aos-delay="1000">
-        <p>Hello, World</p>
-        <v-divider dark></v-divider>
-      </div>
-    </div>
-  </div>
+  <v-parallax
+    src="https://scontent.fbkk5-7.fna.fbcdn.net/v/t1.0-9/97116270_2832092560193178_936624816981540864_o.jpg?_nc_cat=108&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeEvT_j9_Z_r6e5n7nUfXcTdEewKlTszdOAR7AqVOzN04C6lkol250NXq6j_ef2XTe2qZNGHojJNSRy_-c7UYgpG&_nc_ohc=Pp6R2e_w7V0AX8n0OJr&_nc_ht=scontent.fbkk5-7.fna&oh=67c70f35d2f3c963843cc8bc0c71683c&oe=607B320E"
+    height="800"
+    pa-1
+    dark
+  >
+    <v-layout column align-center justify-center data-aos="fade-down" data-aos-duration="2000">
+            <p class="header">Hello, World</p>
+            <div class="white--text subheading mb-3 text-xs-center" style="font-weight: 900; text-shadow: 2px 2px #000000">Unlesh your creativity without limitations</div>
+            <v-btn class="blue lighten-2 mt-5" dark large href="/pre-made-themes">
+              Get Started
+            </v-btn>
+          </v-layout>
+  </v-parallax>
 </template>
 
 <script>
 export default {
-    name: "LandingPage"
+  name: "LandingPage",
 };
 </script>
 
@@ -20,19 +26,18 @@ export default {
 .wrap {
   margin: 0 0;
   padding: 0 0;
-  background-image: url("https://scontent.fbkk5-5.fna.fbcdn.net/v/t1.0-9/48926246_1920200648049045_7409732777978888192_o.jpg?_nc_cat=104&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeHeupPPrekTJ8bnZ9OoMgW17UdFyAm9oQftR0XICb2hB0zOQgvr4m7qv9yf2BZBqcHqZgsqtBDIoH4HXnVxGu2c&_nc_ohc=yfFy4yNyB0wAX9Y5eb-&_nc_ht=scontent.fbkk5-5.fna&oh=0b452117c8aea0bda5e9826269787bb6&oe=607A4D99");
-  background-position: right;
+  height: 750px;
   width: 100%;
 }
-.container {
-  max-width: 960px;
+v-parallax {
   height: 750px;
+}
+.container {
+  max-width: 980px;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: center;
 }
 .header {
-  max-width: 400px;
   font-family: "Open Sans", sans-serif;
   color: white;
   font-size: 50pt;
