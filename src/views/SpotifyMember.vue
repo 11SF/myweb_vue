@@ -185,7 +185,7 @@ export default {
           name: "Nayvintage",
           lastDate: "2/3/2564",
           countMonth: "0",
-          img_src: "https://scontent.fbkk5-7.fna.fbcdn.net/v/t1.0-9/13043381_1749674785254516_2226454364921882379_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=174925&_nc_eui2=AeF4-S_k3iu1A2oOO1q2MuS0VXsi89nl-StVeyLz2eX5KyHMg2dt19lh-TWbZzFhk0ZoR-Ox9R4938dee5MN_sQL&_nc_ohc=yTJ7Y4Toz18AX9HzE2V&_nc_ht=scontent.fbkk5-7.fna&oh=a04c218783cdf95966c5519380e2fcc4&oe=607D64A5",
+          img_src: "https://cdn.discordapp.com/attachments/700750908635611247/822828114882986034/IMG_0440.jpeg",
         },
         {
           name: "ryuxx",
