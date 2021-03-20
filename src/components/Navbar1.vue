@@ -1,18 +1,13 @@
 <template>
   <header>
-    <v-toolbar
-    color="black"
-    dark
-    >
-    
-        <v-toolbar-title>11SF</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
+    <v-toolbar-title color="black" dark>
+      <v-toolbar-title>11SF</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
         <v-btn flat>Open jobs</v-btn>
         <v-btn flat class="pink lighten-3">Sign In</v-btn>
       </v-toolbar-items>
-    
-    </v-toolbar>
+    </v-toolbar-title>
   </header>
 </template>
 
