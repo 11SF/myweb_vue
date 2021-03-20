@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar/>
     <LandingPage />
     <div class="container">
       <div class="box-content">
@@ -67,12 +68,14 @@
 import LandingPage from "../components/LandingPage";
 import Avatar from "../components/avatar";
 import EduCard from "../components/EduCard";
+import Navbar from "../components/Navbar1"
 export default {
   name: "Home",
   components: {
     LandingPage,
     Avatar,
     EduCard,
+    Navbar
   },
 };
 </script>
