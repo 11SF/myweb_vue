@@ -24,6 +24,12 @@ const routes = [
     name: "SpotifyMember",
     component: () => import("../views/SpotifyMember.vue")
   }
+  ,
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue")
+  }
 ];
 
 const router = new VueRouter({
