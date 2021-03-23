@@ -2,6 +2,8 @@
   <v-app>
     <Navbar/>
     <div class="container">
+      <v-text>count: {{counter}} || aa : {{hello}} ||</v-text>
+      <v-btn @click="count()">+</v-btn>
     <div class="header">
       <v-img
         class="img"
@@ -104,6 +106,9 @@ export default {
     Navbar
   },
   methods: {
+    count() {
+      this.counter += 1
+    },
     clipboard() {
       let a = "0940932105";
       navigator.clipboard.writeText(a);
@@ -140,8 +145,18 @@ export default {
       }
     },
   },
+  updated() {
+      let a = localStorage.getItem('userKey')
+      if(a != null)
+        this.hello = "Nawapong Sitaruno" 
+        else {
+        this.hello = "" 
+        }
+    },
   data() {
     return {
+      counter : 0,
+      hello : "",
       ticksLabels: ["1 เดือน", "3 เดือน", "6 เดือน", "12 เดือน"],
       price: 0,
       pp_picture: "pp_35.jpg",
