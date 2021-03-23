@@ -25,6 +25,9 @@
               <v-list-item-subtitle
                 >จ่ายล่าสุด : วว/ดด/ปปปป</v-list-item-subtitle
               >
+              <v-list-item-subtitle
+                >หมดอายุ : วว/ดด/ปปปป</v-list-item-subtitle
+              >
               <v-list-item-subtitle>เดือนคงเหลือ : 10</v-list-item-subtitle>
               <v-alert
                 type="error"
@@ -163,6 +166,7 @@ export default {
         {
           name: "11SF",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "0",
           img_src:
             "https://scontent.fbkk5-7.fna.fbcdn.net/v/t1.0-9/107698195_2967815813287518_541907919760258090_o.jpg?_nc_cat=108&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeE3aO3DclaFIA835EOawoRtfGJcX_stZBh8Ylxf-y1kGO4umJMtOdZxjXdSJ5N0IJpcc6Rpj9i_eCT85UwALEOj&_nc_ohc=zACpTZyDvEcAX9gUrda&_nc_ht=scontent.fbkk5-7.fna&oh=83727be87c32779b7f7cebadb76ca1c9&oe=607CAD98",
@@ -170,6 +174,7 @@ export default {
         {
           name: "MrNonDark",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "-1",
           img_src:
             "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/161301907_3623357261120428_687880429245692114_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGh4kauc9uVV8-m-IwbfZQLgiEoyHAQ8EOCISjIcBDwQ9kLa4L6l-1qK_--baaeW1VGGqGXA_qSpkXy6JYYv0ra&_nc_ohc=ogobe3_RRNUAX-Y9sN3&_nc_ht=scontent.fbkk5-3.fna&oh=2c502422208ac9bf752d05864bc030d0&oe=6079B6C9",
@@ -177,6 +182,7 @@ export default {
         {
           name: "Only_Golf",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "1",
           img_src:
             "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/161301907_3623357261120428_687880429245692114_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGh4kauc9uVV8-m-IwbfZQLgiEoyHAQ8EOCISjIcBDwQ9kLa4L6l-1qK_--baaeW1VGGqGXA_qSpkXy6JYYv0ra&_nc_ohc=ogobe3_RRNUAX-Y9sN3&_nc_ht=scontent.fbkk5-3.fna&oh=2c502422208ac9bf752d05864bc030d0&oe=6079B6C9",
@@ -184,6 +190,7 @@ export default {
         {
           name: "ปอ ค้าบบบบบบ",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "1",
           img_src:
             "https://cdn.discordapp.com/attachments/769239968744603770/822823214023180338/image0.jpg",
@@ -191,12 +198,14 @@ export default {
         {
           name: "Nayvintage",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "0",
           img_src: "https://cdn.discordapp.com/attachments/700750908635611247/822828114882986034/IMG_0440.jpeg",
         },
         {
           name: "ryuxx",
           lastDate: "2/3/2564",
+          expireDate : "2/3/2564",
           countMonth: "0",
           img_src: "https://cdn.discordapp.com/attachments/711603551302058065/822822687680102460/IMG_0237.jpg",
         },
