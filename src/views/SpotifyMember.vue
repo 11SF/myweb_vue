@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <v-app>
+    <Navbar/>
+    <div class="container">
     <div class="header">
       <v-img
         class="img"
@@ -92,10 +94,15 @@
       </v-col>
     </v-row>
   </div>
+  </v-app>
 </template>
 
 <script>
+import Navbar from '../components/Navbar2'
 export default {
+  components: {
+    Navbar
+  },
   methods: {
     clipboard() {
       let a = "0940932105";

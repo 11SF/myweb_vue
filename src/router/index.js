@@ -23,6 +23,11 @@ const routes = [
     path: "/spotifymember",
     name: "SpotifyMember",
     component: () => import("../views/SpotifyMember.vue")
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/login.vue")
   }
 ];
 
