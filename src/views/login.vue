@@ -51,6 +51,13 @@ export default {
         ...mapMutations([
             'GETLOGOUT'
         ])
+    },
+    updated() {
+        if(localStorage.getItem('userKey') != null) {
+            this.$router.push({
+                path : 'SpotifyMember'
+            })
+        }
     }
 }
 </script>
