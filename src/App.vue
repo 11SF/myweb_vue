@@ -11,6 +11,9 @@ export default {
   name: "App",
   components: {
   },
+  created() {
+    this.$store.dispatch('checkLogin')
+  }
 };
 </script>
 <style>

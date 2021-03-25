@@ -5,34 +5,61 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userKey : ""
+    loginStatus : "notLogin",
+    userData : ""
   },
   mutations: {
-    GETLOGIN(state, payload) {
-      if(payload.data.status) {
-        console.log(payload.data)
-        state.userKey = payload.data
+    LOGIN(state, payload) {
+        state.loginStatus = 'Login'
+        state.userData = payload.data.userKey
         localStorage.setItem('userKey', payload.data.userKey)
-      } 
+        localStorage.setItem('userKey', payload.data.userKey)
     },
-    GETLOGOUT(state) {
-      state.userKey = ""
+    LOGOUT(state) {
+      state.loginStatus = 'notLogin'
+      state.userData = ""
       localStorage.removeItem('userKey')
+    },
+    CHECKLOGIN(state) {
+      state.loginStatus = 'Login',
+      state.userData = localStorage.getItem('userKey')
     }
   },
   actions: {
-    // adminLogin : ({commit}, forms) => ,
-    adminLogin : async ({ commit },forms)=> {
+    async adminLogin(context, forms) {
       let user = await axios.post("http://localhost:5000/api/admin/login",forms)
-      
-        commit('GETLOGIN', user) 
-      
+      if(user.data.status) {
+        context.commit('LOGIN', user) 
+      }
     },
+    logout(context) {
+      context.commit('LOGOUT')
+    },
+    checkLogin(context){
+      if(localStorage.getItem('userKey') != null) {
+        context.commit('CHECKLOGIN')
+      }
+    }
   },
-  modules: {},
-  getters : {
-    getlocalKey() {
+  getters: {
+    getLoginStatus(state) {
+      return state.loginStatus
+    },
+    getUserData(state) {
+      return state.userData
+    }
+  },
+  computed: {
+    localStorage_data() {
       return localStorage.getItem('userKey')
     }
+  },
+  watch: {
+    localStorage_data(newData,state)  {
+      if(newData == null) {
+        state.loginStatus = 'notLogin'
+    }
   }
+  },
+  modules: {},
 });

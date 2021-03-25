@@ -19,12 +19,13 @@
                         >
                         </v-text-field>
                         <v-text>{{$store.state.user_private_key}}</v-text>
-                        <v-btn @click="adminLogin(forms)" color="primary" block>
+                        <v-btn @click="login" color="primary" block>
                             Login
                         </v-btn>
-                        <v-btn @click="GETLOGOUT" color="primary" block>
+                        <p>{{loginStatus}}</p>
+                        <!-- <v-btn @click="" color="primary" block>
                             Logout
-                        </v-btn>
+                        </v-btn> -->
                     </v-form>
                 </v-card>
             </v-col>
@@ -33,7 +34,6 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
 export default {
     name : "Login",
     data() {
@@ -45,18 +45,24 @@ export default {
         }
     },
     methods : {
-        ...mapActions([
-            'adminLogin'
-        ]),
-        ...mapMutations([
-            'GETLOGOUT'
-        ])
+        login() {
+            this.$store.dispatch('adminLogin',this.forms)
+        }
     },
-    updated() {
-        if(localStorage.getItem('userKey') != null) {
-            this.$router.push({
-                path : 'SpotifyMember'
-            })
+    computed:{
+        loginStatus() {
+            return this.$store.getters.getLoginStatus
+        }
+    },
+    created() {
+        if(this.loginStatus == 'Login') {
+            this.$router.push({name : "SpotifyMember"})
+        }
+    },
+    watch: {
+        loginStatus(newStatus) {
+            if(newStatus == 'Login')
+                this.$router.push({name : "SpotifyMember"})
         }
     }
 }
