@@ -14,12 +14,15 @@
       </div>
     </div>
     <v-divider></v-divider>
+    <div class="d-flex justify-end">
+      <button class="btn btn-outlined btn-primary" v-if="$store.getters.getLevelUser == 'admin'" @click="goAdminPage()">AdminPage</button>
+    </div>
     <v-row v-if="$store.getters.getMembersData == 'No Data'">
       <v-col lg="12">
         <h1 class="text-center">{{$store.getters.getMembersData}}</h1>
       </v-col>
     </v-row>
-    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content" v-else>
+    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content pa-10" v-else>
       <v-col sm="12" md="5" v-for="member in $store.getters.getMembersData" :key="member">
         <v-card max-width="500px" height="170px" class="pa-5 mx-auto">
           <v-list-item>
@@ -28,12 +31,12 @@
                 {{ member.name }}
               </v-list-item-title>
               <v-list-item-subtitle
-                >จ่ายล่าสุด : วว/ดด/ปปปป</v-list-item-subtitle
+                >จ่ายล่าสุด : {{member.lastDate}}</v-list-item-subtitle
               >
               <v-list-item-subtitle
-                >หมดอายุ : วว/ดด/ปปปป</v-list-item-subtitle
+                >หมดอายุ : {{member.expireDate}}</v-list-item-subtitle
               >
-              <v-list-item-subtitle>เดือนคงเหลือ : 10</v-list-item-subtitle>
+              <v-list-item-subtitle>เดือนคงเหลือ : {{member.countMonth}}</v-list-item-subtitle>
               <v-alert
                 type="error"
                 max-width="200"
@@ -60,7 +63,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center" align="center">
+    <v-row justify="center" align="center" class="pa-4">
       <v-col md="5" sm="12">
         <v-img v-bind:src="getPP_picture()" max-width="300" class="mx-auto">
         </v-img>
@@ -145,6 +148,11 @@ export default {
         return require("../assets/pp_420.jpg");
       }
     },
+    goAdminPage() {
+      this.$router.push({
+        path: '/spotify/admin'
+      })
+    }
   },
   data() {
     return {
