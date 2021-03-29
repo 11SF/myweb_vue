@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loginStatus : "notLogin",
-    userData : ""
+    userData : "",
+    membersData : 'No Data',
   },
   mutations: {
     LOGIN(state, payload) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     CHECKLOGIN(state) {
       state.loginStatus = 'Login',
       state.userData = localStorage.getItem('userKey')
+    },
+    MEMBERSDATA(state,payload) {
+      state.membersData = payload.data
     }
   },
   actions: {
@@ -39,6 +43,10 @@ export default new Vuex.Store({
       if(localStorage.getItem('userKey') != null) {
         context.commit('CHECKLOGIN')
       }
+    },
+    async fetchMembersData(context) {
+      let res = await axios.get(URL)
+        context.commit('MEMBERSDATA', res)
     }
   },
   getters: {
@@ -47,6 +55,9 @@ export default new Vuex.Store({
     },
     getUserData(state) {
       return state.userData
+    },
+    getMembersData(state) {
+      return state.membersData
     }
   },
   computed: {

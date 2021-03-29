@@ -14,8 +14,13 @@
       </div>
     </div>
     <v-divider></v-divider>
-    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content">
-      <v-col sm="12" md="5" v-for="member in list_item" :key="member">
+    <v-row v-if="$store.getters.getMembersData == 'No Data'">
+      <v-col lg="12">
+        <h1 class="text-center">{{$store.getters.getMembersData}}</h1>
+      </v-col>
+    </v-row>
+    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content" v-else>
+      <v-col sm="12" md="5" v-for="member in $store.getters.getMembersData" :key="member">
         <v-card max-width="500px" height="170px" class="pa-5 mx-auto">
           <v-list-item>
             <v-list-item-content>
@@ -213,6 +218,11 @@ export default {
       ],
     };
   },
+  created() {
+    if(this.$store.getters.getMembersData == 'No Data') {
+      this.$store.dispatch('fetchMembersData')
+    } 
+  }
 };
 </script>
 
