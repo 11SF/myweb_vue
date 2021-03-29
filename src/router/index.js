@@ -20,7 +20,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: "/spotifymember",
+    path: "/spotify/members",
     name: "SpotifyMember",
     component: () => import("../views/SpotifyMember.vue")
   },
@@ -28,7 +28,18 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import("../views/login.vue")
+  },
+  {
+    path: "/spotify/admin",
+    name: "SpotifyAdmin",
+    component: () => import("../views/SpotifyAdmin.vue")
+  },
+  {
+    path: "/spotify/admin/addmember",
+    name: "Addmember",
+    component: () => import("../views/Addmember.vue")
   }
+  
 ];
 
 const router = new VueRouter({
