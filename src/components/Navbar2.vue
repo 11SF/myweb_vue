@@ -17,9 +17,7 @@ export default {
     },
     methods : {
         goLogin() {
-            this.$router.push(
-                {path : 'Login'}
-            )
+            this.$router.push("/login")
         },
         logout() {
             this.$store.dispatch('logout')
