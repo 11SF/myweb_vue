@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import AOS from "aos";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import "aos/dist/aos.css";
 
 Vue.config.productionTip = false;
