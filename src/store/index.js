@@ -7,14 +7,16 @@ export default new Vuex.Store({
   state: {
     loginStatus : "notLogin",
     userData : "",
+    userLevel : "",
     membersData : 'No Data',
   },
   mutations: {
     LOGIN(state, payload) {
         state.loginStatus = 'Login'
         state.userData = payload.data.userKey
+        state.userLevel = "admin"
         localStorage.setItem('userKey', payload.data.userKey)
-        localStorage.setItem('userKey', payload.data.userKey)
+        localStorage.setItem('userLevel', "admin")
     },
     LOGOUT(state) {
       state.loginStatus = 'notLogin'
@@ -24,6 +26,7 @@ export default new Vuex.Store({
     CHECKLOGIN(state) {
       state.loginStatus = 'Login',
       state.userData = localStorage.getItem('userKey')
+      state.userLevel = localStorage.getItem('userLevel')
     },
     MEMBERSDATA(state,payload) {
       state.membersData = payload.data
@@ -45,7 +48,7 @@ export default new Vuex.Store({
       }
     },
     async fetchMembersData(context) {
-      let res = await axios.get(URL)
+      let res = await axios.get('http://localhost:5000/api/member/getlist')
         context.commit('MEMBERSDATA', res)
     }
   },
@@ -58,6 +61,9 @@ export default new Vuex.Store({
     },
     getMembersData(state) {
       return state.membersData
+    },
+    getLevelUser(state) {
+      return state.userLevel
     }
   },
   computed: {
