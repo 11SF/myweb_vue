@@ -53,8 +53,9 @@
                       >
                       <v-list-item-subtitle
                         >เดือนคงเหลือ :
-                        {{ member.countMonth }}</v-list-item-subtitle
+                        {{ member.countMonth }}</v-list-item-subtitle 
                       >
+                      <!-- make function for calculate balance month -->
                     </v-list-item-content>
                   </v-col>
                 </v-row>
@@ -96,7 +97,7 @@
                         fab
                         dark
                         color="green"
-                        @click="dialog = true"
+                        @click="dialog = true, memberSelect = member"
                       >
                         ยืนยัน
                       </v-btn>
@@ -107,9 +108,6 @@
 
               <v-divider></v-divider>
 
-              <!-- <v-list-item>
-                <v-btn elevation="2" color="warning" dark>แก้ไขข้อมูล</v-btn>
-              </v-list-item> -->
               <v-list-item>
                 <v-expansion-panels>
                   <v-expansion-panel>
@@ -118,11 +116,11 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <v-row>
-                        <v-col cols="6" class="d-flex justify-content-end">
-                          <v-btn elevation="2" color="warning" dark>แก้ไขข้อมูลผู้ใช้</v-btn>
+                        <v-col cols="12" lg="6" class="d-flex justify-content-end">
+                          <v-btn elevation="2" color="warning" block dark>แก้ไขข้อมูลผู้ใช้</v-btn>
                         </v-col>
-                        <v-col cols="6" class="d-flex justify-content-end">
-                          <v-btn elevation="2" color="red" dark>ลบผู้ใช้</v-btn>
+                        <v-col cols="12" lg="6" class="d-flex justify-content-end">
+                          <v-btn elevation="2" color="red" block dark>ลบผู้ใช้</v-btn>
                         </v-col>
                       </v-row>
                     </v-expansion-panel-content>
@@ -137,22 +135,20 @@
       <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
           <v-card-title class="headline">
-            จะดำเนินการเพิ่มเดือนให้ {{}}
+            แน่ใจนะ 🤔
           </v-card-title>
           <v-card-text
-            >Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are
-            running.</v-card-text
+            >คุณต้องการดำเนินการเพิ่มเดือนให้ {{memberSelect.name}} เป็นจำนวน {{memberSelect.countMonth}} เดือนใช่ไหม</v-card-text
           >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog = false">
+            <v-btn color="green darken-1" text @click="dialog = false,memberSelect ='' ">
               Disagree
             </v-btn>
             <v-btn
               color="green darken-1"
               text
-              @click="(dialog = false), updateData(member)"
+              @click="(dialog = false), updateData(member),memberSelect ='' "
             >
               Agree
             </v-btn>
@@ -171,6 +167,7 @@ export default {
       membersData: this.$store.getters.getMembersData,
       dialog: false,
       isAgree: false,
+      memberSelect : ''
     };
   },
   methods: {
