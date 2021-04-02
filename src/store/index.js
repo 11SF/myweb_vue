@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios"
+import axios from "axios";
+import jwt_decode from 'jwt-decode';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -8,12 +9,12 @@ export default new Vuex.Store({
     loginStatus : "notLogin",
     userData : "",
     userLevel : "",
-    membersData : 'No Data',
+    membersData : '',
   },
   mutations: {
     LOGIN(state, payload) {
         state.loginStatus = 'Login'
-        state.userData = payload.data.userKey
+        state.userData = jwt_decode(localStorage.getItem('userKey'))
         state.userLevel = "admin"
         localStorage.setItem('userKey', payload.data.userKey)
         localStorage.setItem('userLevel', "admin")
@@ -25,12 +26,12 @@ export default new Vuex.Store({
     },
     CHECKLOGIN(state) {
       state.loginStatus = 'Login',
-      state.userData = localStorage.getItem('userKey')
+      state.userData = jwt_decode(localStorage.getItem('userKey'))
       state.userLevel = localStorage.getItem('userLevel')
     },
     MEMBERSDATA(state,payload) {
       state.membersData = payload.data
-    }
+    },
   },
   actions: {
     async adminLogin(context, forms) {
@@ -50,7 +51,7 @@ export default new Vuex.Store({
     async fetchMembersData(context) {
       let res = await axios.get('http://localhost:5000/api/member/getlist')
         context.commit('MEMBERSDATA', res)
-    }
+    },
   },
   getters: {
     getLoginStatus(state) {

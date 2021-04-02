@@ -227,7 +227,7 @@ export default {
     };
   },
   created() {
-    if(this.$store.getters.getMembersData == 'No Data') {
+    if(this.$store.getters.getMembersData == '') {
       this.$store.dispatch('fetchMembersData')
     } 
   }
