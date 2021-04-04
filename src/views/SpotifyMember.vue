@@ -15,7 +15,7 @@
     </div>
     <v-divider></v-divider>
     <div class="d-flex justify-end">
-      <button class="btn btn-outlined btn-primary" v-if="$store.getters.getLevelUser == 'admin'" @click="goAdminPage()">AdminPage</button>
+      <button class="btn btn-outlined btn-primary" v-if="$store.getters.getUserData.role == 'admin'" @click="goAdminPage()">AdminPage</button>
     </div>
     <v-row v-if="$store.getters.getMembersData == 'No Data'">
       <v-col lg="12">
