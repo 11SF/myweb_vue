@@ -22,28 +22,28 @@
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item link>
+        <v-list-item link @click="menuSelect = '1'">
           <v-list-item-icon>
             <v-icon>mdi-account-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>จัดการข้อมูลสมาชิก</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="menuSelect = '2'">
           <v-list-item-icon>
             <v-icon>mdi-account-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>จัดการข้อมูลส่วนตัวสมาชิก</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="menuSelect = '3'">
           <v-list-item-icon>
             <v-icon>mdi-account-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>เพิ่ม/ลบ สมาชิก</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="logout">
           <v-list-item-icon>
             <v-icon>mdi-star</v-icon>
           </v-list-item-icon>
@@ -51,7 +51,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <Manage/>
+    <Manage v-if="menuSelect == '1'" />
   </v-app>
 </template>
 
@@ -69,9 +69,14 @@ export default {
       membersData: this.$store.getters.getMembersData,
       dialog: false,
       isAgree: false,
+      menuSelect : '1'
     };
   },
   methods: {
+    logout() {
+      this.$store.dispatch('logout')
+      this.$router.push({name : 'SpotifyMember'})
+    },
     pushCount(member) {
       member.countMonth += 1;
       let a = member.expireDate.split("/");
@@ -111,9 +116,13 @@ export default {
     },
   },
   created() {
-    if(this.$store.getters.getMembersData == '') {
-      this.$store.dispatch('fetchMembersData')
-    } 
+    // if(this.$store.getters.getUserData.role == 'admin') {
+        if(this.$store.getters.getMembersData == '') {
+        this.$store.dispatch('fetchMembersData')
+      } 
+    // } else {
+    //     this.$router.push({name : "SpotifyMember"})
+    // }
   }
 };
 </script>
