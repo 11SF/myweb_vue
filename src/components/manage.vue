@@ -6,6 +6,7 @@
           class="pa-10"
           dark
           img="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+          data-aos="fade-down" data-aos-duration="200"
         >
           <div class="d-flex align-center justify-content-between">
             <h1>เลยกำหนดจ่าย</h1>
@@ -20,7 +21,7 @@
             v-for="member in $store.getters.getMembersData"
             :key="member"
           >
-            <v-card class="pa-5 mx-auto">
+            <v-card class="pa-5 mx-auto" data-aos="flip-left">
               <v-list-item>
                 <v-row class="fill-height">
                   <v-col
