@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         async save() {
-            let res = await axios.post('http://localhost:5000/api/member/addmember',this.form)
+            let res = await axios.post('https://mysitebackend.herokuapp.com/api/admin/add',this.form)
             console.log(res)
             if(res.data.status == 'success') {
                 this.$router.push("/spotify/members")

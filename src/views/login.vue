@@ -19,7 +19,7 @@
                         >
                         </v-text-field>
                         <v-text>{{$store.state.user_private_key}}</v-text>
-                        <v-btn @click="login" color="primary" block>
+                        <v-btn @click="login()" color="primary" block>
                             Login
                         </v-btn>
                         <p>{{loginStatus}}</p>

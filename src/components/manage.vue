@@ -149,7 +149,7 @@
             <v-btn
               color="green darken-1"
               text
-              @click="(dialog = false), updateData(member),memberSelect ='' "
+              @click="(dialog = false), updateData(memberSelect),memberSelect ='' "
             >
               Agree
             </v-btn>
@@ -200,13 +200,23 @@ export default {
     },
     async updateData(member) {
       let res = await axios.put(
-        "http://localhost:5000/api/member/updatemember",
-        member
+        "https://mysitebackend.herokuapp.com/api/admin/members/edit/date/", {
+            'lastDate' : member.lastDate,
+            'expireDate' : member.expireDate
+          },
+          {
+          headers : {
+            'Authorization': `Bearer ${localStorage.getItem('userKey')}`
+          },
+          query : {
+            'id' : member._id
+          }
+        },
       );
       this.updateStatus(res);
     },
     updateStatus(res) {
-      if (res.data.status === "success") return true;
+      if (res.data.status === true) return true;
       else return false;
     },
   },

@@ -13,7 +13,7 @@
             }}</v-list-item-title>
             <v-list-item-subtitle
               >Role :
-              {{ $store.getters.getUserData.role }}</v-list-item-subtitle
+              {{ $store.getters.getUserData.userLevel }}</v-list-item-subtitle
             >
           </v-list-item-content>
         </v-list-item>
@@ -105,13 +105,21 @@ export default {
     },
     async updateData(member) {
       let res = await axios.put(
-        "http://localhost:5000/api/member/updatemember",
+        "https://mysitebackend.herokuapp.com/api/admin/edit/",
+        {
+          headers : {
+            'Authorization': `Bearer ${localStorage.getItem('userKey')}`
+          },
+          query : {
+            'id' : member._id
+          }
+        },
         member
       );
       this.updateStatus(res);
     },
     updateStatus(res) {
-      if (res.data.status === "success") return true;
+      if (res.data.status === true) return true;
       else return false;
     },
   },

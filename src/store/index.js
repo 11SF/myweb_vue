@@ -12,12 +12,10 @@ export default new Vuex.Store({
     membersData : '',
   },
   mutations: {
-    LOGIN(state, payload) {
+    LOGIN(state,payload) {
         state.loginStatus = 'Login'
-        state.userData = jwt_decode(payload.data.userKey)
-        state.userLevel = "admin"
-        localStorage.setItem('userKey', payload.data.userKey)
-        // localStorage.setItem('userLevel', "admin")
+        state.userData = jwt_decode(payload.data.token)
+        localStorage.setItem('userKey', payload.data.token)
     },
     LOGOUT(state) {
       state.loginStatus = 'notLogin'
@@ -27,7 +25,6 @@ export default new Vuex.Store({
     CHECKLOGIN(state) {
       state.loginStatus = 'Login',
       state.userData = jwt_decode(localStorage.getItem('userKey'))
-      state.userLevel = localStorage.getItem('userLevel')
     },
     MEMBERSDATA(state,payload) {
       state.membersData = payload.data
@@ -35,7 +32,7 @@ export default new Vuex.Store({
   },
   actions: {
     async adminLogin(context, forms) {
-      let user = await axios.post("http://localhost:5000/api/admin/login",forms)
+      let user = await axios.post("https://mysitebackend.herokuapp.com/api/auth/login",forms)
       if(user.data.status) {
         context.commit('LOGIN', user) 
       }
@@ -49,7 +46,7 @@ export default new Vuex.Store({
       }
     },
     async fetchMembersData(context) {
-      let res = await axios.get('http://localhost:5000/api/member/getlist')
+      let res = await axios.get('https://mysitebackend.herokuapp.com/api/member/get/all')
         context.commit('MEMBERSDATA', res)
     },
   },
