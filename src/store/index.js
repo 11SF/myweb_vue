@@ -14,10 +14,10 @@ export default new Vuex.Store({
   mutations: {
     LOGIN(state, payload) {
         state.loginStatus = 'Login'
-        state.userData = jwt_decode(localStorage.getItem('userKey'))
+        state.userData = jwt_decode(payload.data.userKey)
         state.userLevel = "admin"
         localStorage.setItem('userKey', payload.data.userKey)
-        localStorage.setItem('userLevel', "admin")
+        // localStorage.setItem('userLevel', "admin")
     },
     LOGOUT(state) {
       state.loginStatus = 'notLogin'
