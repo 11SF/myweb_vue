@@ -56,7 +56,7 @@ export default {
     },
     created() {
         if(this.loginStatus == 'Login') {
-            this.$router.push({name : "SpotifyMember"})
+            this.$router.push({name : "SpotifyAdmin"})
         }
     },
     watch: {
