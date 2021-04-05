@@ -22,24 +22,18 @@ const routes = [
   {
     path: "/spotify/members",
     name: "SpotifyMember",
-    component: () => import("../views/SpotifyMember.vue")
+    component: () => import("../views/SpotifyMember.vue"),
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/login.vue")
+    component: () => import("../views/login.vue"),
   },
   {
     path: "/spotify/admin",
     name: "SpotifyAdmin",
-    component: () => import("../views/SpotifyAdmin.vue")
+    component: () => import("../views/SpotifyAdmin.vue"),
   },
-  {
-    path: "/spotify/admin/addmember",
-    name: "Addmember",
-    component: () => import("../views/Addmember.vue")
-  }
-  
 ];
 
 const router = new VueRouter({
