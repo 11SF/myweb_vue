@@ -22,43 +22,55 @@
         <h1 class="text-center">{{$store.getters.getMembersData}}</h1>
       </v-col>
     </v-row>
-    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content pa-10" v-else>
+    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content pa-5" v-else>
       <v-col sm="12" md="5" v-for="member in $store.getters.getMembersData" :key="member">
-        <v-card max-width="500px" height="170px" class="pa-5 mx-auto">
+        <v-card max-width="500px" class="pa-5 mx-auto">
           <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                {{ member.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle
-                >จ่ายล่าสุด : {{member.lastDate}}</v-list-item-subtitle
-              >
-              <v-list-item-subtitle
-                >หมดอายุ : {{member.expireDate}}</v-list-item-subtitle
-              >
-              <v-list-item-subtitle>เดือนคงเหลือ : {{member.countMonth}}</v-list-item-subtitle>
-              <v-alert
+            <v-row justify="center">
+              <v-col cols="12" lg="5" align-center>
+                <v-list-item-avatar size="100" class="mx-auto d-flex">
+                    <v-avatar size="100">
+                      <img alt="user" :src="member.img_src" />
+                    </v-avatar>
+                </v-list-item-avatar>
+              </v-col>
+              <v-col cols="12" lg="7">
+                <v-row>
+                  <v-col cols="12">
+                      <v-list-item-title class="headline mb-3">{{ member.name }}</v-list-item-title>
+                      <v-list-item-subtitle><h6>จ่ายล่าสุด : {{member.lastDate}}</h6></v-list-item-subtitle>
+                      <v-list-item-subtitle><h6>หมดอายุ : {{member.expireDate}}</h6></v-list-item-subtitle>
+                      <!-- <v-list-item-subtitle>เดือนคงเหลือ : {{calculateMonthBalance(member)}}</v-list-item-subtitle>                               -->
+                  </v-col>
+                </v-row>  
+              </v-col>
+              <v-col cols="12">
+                <v-alert
                 type="error"
-                max-width="200"
+                max-width="500"
                 class="pa-1"
-                v-if="member.countMonth == -1"
+                v-if="getAlert(member) === 'late'"
               >
                 เลยกำหนดจ่าย
               </v-alert>
               <v-alert
                 type="warning"
-                max-width="200"
+                max-width="500"
                 class="pa-1"
-                v-else-if="member.countMonth == 0"
+                v-else-if="getAlert(member) === 'inTime'"
               >
                 ถึงกำหนดจ่าย
               </v-alert>
-            </v-list-item-content>
-            <v-list-item-avatar size="100">
-              <v-avatar size="100">
-                <img alt="user" :src="member.img_src" />
-              </v-avatar>
-            </v-list-item-avatar>
+              <v-alert
+                type="success"
+                max-width="500"
+                class="pa-1"
+                v-else-if="getAlert(member) === 'good'"
+              >
+                สมาชิกที่ดี
+              </v-alert>
+              </v-col>
+            </v-row>
           </v-list-item>
         </v-card>
       </v-col>
@@ -152,84 +164,52 @@ export default {
       this.$router.push({
         path: '/spotify/admin'
       })
-    }
+    },
+    getAlert(member) {
+      let date  = new Date();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear() + 543;
+
+      let temp  = member.expireDate.split("/");
+      if (temp[1] > month || year < temp[2]) {
+        return 'good'
+      } else if (temp[1] == month) {
+        return 'inTime'
+      } else {
+        return 'late'
+      }
+    },
+    // calculateMonthBalance(member) {
+    //   let date  = new Date();
+    //   let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear() + 543}`   
+
+    //   let monthBalance = 0;
+    //   let a = member.expireDate.split("/")
+    //   let expireDate = `3/${a[1]}/${a[2]}`;
+    //   while(!(stringDate === expireDate)) {
+    //     monthBalance += 1;
+    //     let a  = stringDate.split("/");
+    //     let int = parseInt(a[1]) + 1;
+    //     if (int > 12) {
+    //       int = 1;
+    //       let year = parseInt(a[2]) + 1;
+    //       stringDate = `${a[0]}/${int}/${year}`;
+    //     } else {
+    //       stringDate = `${a[0]}/${int}/${a[2]}`;
+    //     }
+    //   }
+    //   return monthBalance
+    // }
   },
   data() {
     return {
       ticksLabels: ["1 เดือน", "3 เดือน", "6 เดือน", "12 เดือน"],
       price: 0,
       pp_picture: "pp_35.jpg",
-      table_header: [
-        {
-          text: "Name",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        {
-          text: "วันที่จ่ายล่าสุด",
-          value: "lastDate",
-          sortable: false,
-          image: " mdi-alarm",
-        },
-        { text: "ค้างจ่าย (เดือน)", value: "countMonth", sortable: false },
-        { text: "สถานะ", value: "status", sortable: false },
-        { text: "ชำระงิน", value: "pay", sortable: false },
-      ],
-      list_item: [
-        {
-          name: "11SF",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "0",
-          img_src:
-            "https://scontent.fbkk5-7.fna.fbcdn.net/v/t1.0-9/107698195_2967815813287518_541907919760258090_o.jpg?_nc_cat=108&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeE3aO3DclaFIA835EOawoRtfGJcX_stZBh8Ylxf-y1kGO4umJMtOdZxjXdSJ5N0IJpcc6Rpj9i_eCT85UwALEOj&_nc_ohc=zACpTZyDvEcAX9gUrda&_nc_ht=scontent.fbkk5-7.fna&oh=83727be87c32779b7f7cebadb76ca1c9&oe=607CAD98",
-        },
-        {
-          name: "MrNonDark",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "-1",
-          img_src:
-            "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/161301907_3623357261120428_687880429245692114_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGh4kauc9uVV8-m-IwbfZQLgiEoyHAQ8EOCISjIcBDwQ9kLa4L6l-1qK_--baaeW1VGGqGXA_qSpkXy6JYYv0ra&_nc_ohc=ogobe3_RRNUAX-Y9sN3&_nc_ht=scontent.fbkk5-3.fna&oh=2c502422208ac9bf752d05864bc030d0&oe=6079B6C9",
-        },
-        {
-          name: "Only_Golf",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "1",
-          img_src:
-            "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/161301907_3623357261120428_687880429245692114_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGh4kauc9uVV8-m-IwbfZQLgiEoyHAQ8EOCISjIcBDwQ9kLa4L6l-1qK_--baaeW1VGGqGXA_qSpkXy6JYYv0ra&_nc_ohc=ogobe3_RRNUAX-Y9sN3&_nc_ht=scontent.fbkk5-3.fna&oh=2c502422208ac9bf752d05864bc030d0&oe=6079B6C9",
-        },
-        {
-          name: "ปอ ค้าบบบบบบ",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "1",
-          img_src:
-            "https://cdn.discordapp.com/attachments/769239968744603770/822823214023180338/image0.jpg",
-        },
-        {
-          name: "Nayvintage",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "0",
-          img_src: "https://cdn.discordapp.com/attachments/700750908635611247/822828114882986034/IMG_0440.jpeg",
-        },
-        {
-          name: "ryuxx",
-          lastDate: "2/3/2564",
-          expireDate : "2/3/2564",
-          countMonth: "0",
-          img_src: "https://cdn.discordapp.com/attachments/711603551302058065/822822687680102460/IMG_0237.jpg",
-        },
-      ],
     };
   },
   created() {
-    if(this.$store.getters.getMembersData == '') {
-      this.$store.dispatch('fetchMembersData')
-    } 
+    this.$store.dispatch('fetchMembersData');
   }
 };
 </script>
