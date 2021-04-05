@@ -198,31 +198,27 @@ export default {
         path: "/spotify/admin/addmember",
       });
     },
-    async updateData(member) {
+    async updateData(member) { 
+      let date = new Date();  
+      let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear() + 543}`   
       let res = await axios.put(
-        "https://mysitebackend.herokuapp.com/api/admin/members/edit/date/", {
-            'lastDate' : member.lastDate,
-            'expireDate' : member.expireDate
+          "https://mysitebackend.herokuapp.com/api/admin/members/edit/date/",
+          {
+            'id'            : member._id,
+            'lastDate'      : stringDate,
+            'expireDate'    : member.expireDate
           },
           {
-          headers : {
-            'Authorization': `Bearer ${localStorage.getItem('userKey')}`
+            headers : {
+             'Authorization': `Bearer ${localStorage.getItem('userKey')}`
           },
-          query : {
-            'id' : member._id
-          }
-        },
+        }
       );
-      this.updateStatus(res);
-    },
-    updateStatus(res) {
-      if (res.data.status === true) return true;
-      else return false;
+      if (res.data.status) {
+        member.countMonth = 0;
+        this.$store.dispatch("fetchMembersData");
+      }
     },
   },
-}
+};
 </script>
-
-<style>
-
-</style>
