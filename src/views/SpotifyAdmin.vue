@@ -43,6 +43,13 @@
           <v-list-item-title>เพิ่ม/ลบ สมาชิก</v-list-item-title>
         </v-list-item>
 
+        <v-list-item link @click="goMembersView">
+          <v-list-item-icon>
+            <v-icon>mdi-account-multiple</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>หน้า members</v-list-item-title>
+        </v-list-item>
+
         <v-list-item link @click="logout">
           <v-list-item-icon>
             <v-icon>mdi-star</v-icon>
@@ -52,17 +59,20 @@
       </v-list>
     </v-navigation-drawer>
     <Manage v-if="menuSelect == '1'" />
+    <Addmember v-if="menuSelect == '2'" />
   </v-app>
 </template>
 
 <script>
 import axios from "axios";
 import Manage from "../components/manage"
+import Addmember from "../components/Addmember"
 // import Navbar from '../components/Navbar2.vue'
 export default {
   components: {
     // Navbar,
-    Manage
+    Manage,
+    Addmember
   },
   data() {
     return {
@@ -122,16 +132,30 @@ export default {
       if (res.data.status === true) return true;
       else return false;
     },
+    goMembersView() {
+      this.$router.push({
+        path: "/spotify/members",
+      });
+    }
   },
   created() {
     // if(this.$store.getters.getUserData.role == 'admin') {
-        if(this.$store.getters.getMembersData == '') {
-        this.$store.dispatch('fetchMembersData')
-      } 
+      this.$store.dispatch('fetchMembersData')
     // } else {
     //     this.$router.push({name : "SpotifyMember"})
     // }
-  }
+  },
+  computed:{
+        pageSelect() {
+            return this.menuSelect
+        }
+  },
+  watch: {
+        pageSelect(oldState,newStatus) {
+          if(newStatus != oldState)
+            this.$store.dispatch('fetchMembersData')
+        }
+    }
 };
 </script>
 
