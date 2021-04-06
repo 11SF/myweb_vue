@@ -17,10 +17,14 @@
     <div class="d-flex justify-end">
       <button class="btn btn-outlined btn-primary" v-if="$store.getters.getUserData.userLevel == 'admin'" @click="goAdminPage()">AdminPage</button>
     </div>
-    <v-row v-if="$store.getters.getMembersData == 'No Data'">
-      <v-col lg="12">
-        <h1 class="text-center">{{$store.getters.getMembersData}}</h1>
-      </v-col>
+    <v-row justify="center" v-if="$store.getters.getMembersData == ''">
+      <v-progress-circular
+      :size="100"
+      :width="7"
+      color="purple"
+      indeterminate
+      class="ma-10"
+    ></v-progress-circular>
     </v-row>
     <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content pa-5" v-else>
       <v-col sm="12" md="5" v-for="member in $store.getters.getMembersData" :key="member">

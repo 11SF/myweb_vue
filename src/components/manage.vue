@@ -1,19 +1,35 @@
 <template>
     <v-main>
-      <section class="pa-10">
-        <v-card
-          color="red darken-1"
-          class="pa-10"
-          dark
-          img="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-          data-aos="fade-down" data-aos-duration="200"
-        >
-          <div class="d-flex align-center justify-content-between">
-            <h1>เลยกำหนดจ่าย</h1>
-            <h2 class="mb-0">100 คน</h2>
-          </div>
-        </v-card>
+      <section class="pa-10">    
+          <v-row>
+            <v-col cols="12" lg="6">
+              <v-card
+                class="pa-10"
+                dark
+                color="yellow darken-2"
+              >
+                    <div class="d-flex align-center justify-content-between">
+                      <h1>ถึงกำหนดจ่าย</h1>
+                      <h2 class="mb-0">{{inTime}}</h2>
+                    </div>
+              </v-card>
+            </v-col>
+            <v-col cols="12" lg="6">
+              <v-card
+                color="red darken-3"
+                class="pa-10"
+                dark
+              >
+                    <div class="d-flex align-center justify-content-between">
+                      <h1>เลยกำหนดจ่าย</h1>
+                      <h2 class="mb-0">{{late}}</h2>
+                    </div>
+              </v-card>
+            </v-col>
+          </v-row>
+       
       </section>
+      
       <section class="pa-10">
         <v-row>
           <v-col
@@ -21,26 +37,20 @@
             v-for="member in $store.getters.getMembersData"
             :key="member"
           >
-            <v-card class="pa-5 mx-auto" data-aos="flip-left">
+            <v-card class="pa-5 mx-auto">
               <v-list-item>
-                <v-row class="fill-height">
+                <v-row class="fill-height" justify="center">
                   <v-col
-                    align-self="start"
-                    class="pa-0 d-flex justify-content-center mb-lg-4"
-                    cols="12"
-                    lg="4"
+                    align-self="middle"
+                    class=" mb-lg-4 d-flex justify-center"
+                    sm="12"
+                    lg="6"
                   >
-                    <!-- <v-list-item-avatar size="100"> -->
-                    <!-- <v-avatar size="100"> -->
-                    <!-- <img alt="user" :src="member.img_src" /> -->
-                    <!-- </v-avatar> -->
-                    <!-- </v-list-item-avatar> -->
-
                     <v-avatar class="profile" color="grey" size="164" tile>
                       <v-img :src="member.img_src"></v-img>
                     </v-avatar>
                   </v-col>
-                  <v-col class="d-flex">
+                  <v-col class="d-flex pa-10" sm="12" lg="6">
                     <v-list-item-content>
                       <v-list-item-title class="headline mb-1">
                         {{ member.name }}
@@ -168,7 +178,10 @@ export default {
       membersData: this.$store.getters.getMembersData,
       dialog: false,
       isAgree: false,
-      memberSelect : ''
+      memberSelect : '',
+      inTime : 0,
+      late : 0,
+      good : 0,
     };
   },
   methods: {
@@ -219,6 +232,33 @@ export default {
         this.$store.dispatch("fetchMembersData");
       }
     },
+    getAlert(members) {
+      let date  = new Date();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear() + 543;
+
+      members.array.forEach(element => {
+        let temp  = element.expireDate.split("/");
+        if (temp[1] > month || year < temp[2]) {
+          this.good += 1
+        } else if (temp[1] == month) {
+          this.inTime += 1
+        } else {
+          this.late += 1
+        }
+      });
+    },
   },
+  computed:{
+    loadingStatus() {
+        return this.$store.getters.getMembersData
+    }
+  },
+  watch: {
+    loadingStatus(newStatus) {
+        if(!(newStatus === ''))
+          this.getAlert(this.$store.getters.getMembersData)
+    }
+  }
 };
 </script>
