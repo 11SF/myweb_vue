@@ -2,7 +2,7 @@
   <v-app>
     <Navbar/>
     <div class="container">
-    <div class="header">
+    <div class="header my-10">
       <v-img
         class="img"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png"
@@ -26,7 +26,7 @@
       class="ma-10"
     ></v-progress-circular>
     </v-row>
-    <v-row justify-md="space-around" justify-xs="" class="mt-6 mb-6 content pa-5" v-else>
+    <v-row justify-md="space-around" justify-sm="center" class="mt-6 mb-6 content pa-5" v-else>
       <v-col sm="12" md="5" v-for="member in $store.getters.getMembersData" :key="member">
         <v-card max-width="500px" class="pa-5 mx-auto">
           <v-list-item>
