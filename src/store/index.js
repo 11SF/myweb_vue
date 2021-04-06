@@ -7,9 +7,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loginStatus : "notLogin",
+    loadingStatus : false,
     userData : "",
     userLevel : "",
     membersData : '',
+    memberDateStatus : {
+      goodMember  : 0,
+      inTime      : 0,
+      late        : 0,
+    }
   },
   mutations: {
     LOGIN(state,payload) {
@@ -62,6 +68,9 @@ export default new Vuex.Store({
     },
     getLevelUser(state) {
       return state.userLevel
+    },
+    getLoadingStatus(state) {
+      return state.loadingStatus
     }
   },
   computed: {
