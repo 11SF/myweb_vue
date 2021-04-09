@@ -59,7 +59,8 @@
       </v-list>
     </v-navigation-drawer>
     <Manage v-if="menuSelect == '1'" />
-    <Addmember v-if="menuSelect == '2'" />
+    <Addmember v-if="menuSelect == '3'" />
+    <EditMember v-if="menuSelect == '2'"/>  
   </v-app>
 </template>
 
@@ -67,12 +68,14 @@
 import axios from "axios";
 import Manage from "../components/manage"
 import Addmember from "../components/Addmember"
+import EditMember from '../components/editMember'
 // import Navbar from '../components/Navbar2.vue'
 export default {
   components: {
     // Navbar,
     Manage,
-    Addmember
+    Addmember,
+    EditMember
   },
   data() {
     return {
@@ -139,11 +142,12 @@ export default {
     }
   },
   created() {
-    // if(this.$store.getters.getUserData.role == 'admin') {
       this.$store.dispatch('fetchMembersData')
-    // } else {
-    //     this.$router.push({name : "SpotifyMember"})
-    // }
+      if (this.$store.getters.getLoginStatus == 'notLogin') {
+        this.$router.push({
+          name : "Login"
+        })
+      }
   },
   computed:{
         pageSelect() {
